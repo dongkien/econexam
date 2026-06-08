@@ -68,6 +68,96 @@ const SUBJECTS = {
   "filled": true,
   "needsReview": false
  },
+ "TMAE315": {
+  "code": "TMAE315",
+  "name": "International Investment Project Management",
+  "program": "Chất lượng cao",
+  "language": "Tiếng Anh",
+  "credits": "03",
+  "duration": "60 phút",
+  "matrix": [
+   {
+    "content": "Chapter 3",
+    "level": "Phân tích",
+    "type": "TL",
+    "sl": 1,
+    "d": 6.0
+   },
+   {
+    "content": "Chapter 4",
+    "level": "Vận dụng",
+    "type": "TL",
+    "sl": 1,
+    "d": 1.0
+   },
+   {
+    "content": "Chapter 5",
+    "level": "Vận dụng",
+    "type": "TL",
+    "sl": 1,
+    "d": 1.0
+   },
+   {
+    "content": "Chapter 6",
+    "level": "Vận dụng",
+    "type": "TL",
+    "sl": 1,
+    "d": 2.0
+   }
+  ],
+  "totalQ": {
+   "TN": 0,
+   "TL": 4
+  },
+  "computedTotal": 10.0,
+  "filled": true,
+  "needsReview": false
+ },
+ "TMA315E": {
+  "code": "TMA315E",
+  "name": "International Investment Project Management",
+  "program": "Tiên tiến",
+  "language": "Tiếng Anh",
+  "credits": "03",
+  "duration": "60 phút",
+  "matrix": [
+   {
+    "content": "Chapter 3",
+    "level": "Phân tích",
+    "type": "TL",
+    "sl": 1,
+    "d": 6.0
+   },
+   {
+    "content": "Chapter 4",
+    "level": "Vận dụng",
+    "type": "TL",
+    "sl": 1,
+    "d": 1.0
+   },
+   {
+    "content": "Chapter 5",
+    "level": "Vận dụng",
+    "type": "TL",
+    "sl": 1,
+    "d": 1.0
+   },
+   {
+    "content": "Chapter 6",
+    "level": "Vận dụng",
+    "type": "TL",
+    "sl": 1,
+    "d": 2.0
+   }
+  ],
+  "totalQ": {
+   "TN": 0,
+   "TL": 4
+  },
+  "computedTotal": 10.0,
+  "filled": true,
+  "needsReview": false
+ },
  "DTU310": {
   "code": "DTU310",
   "name": "ĐẦU TƯ QUỐC TẾ",
@@ -130,6 +220,37 @@ const SUBJECTS = {
   "filled": true,
   "needsReview": false
  },
+ "DTU310E": {
+  "code": "DTU310E",
+  "name": "International Investment",
+  "program": "Tiên tiến",
+  "language": "Tiếng Anh",
+  "credits": "03",
+  "duration": "60 phút",
+  "matrix": [
+   {
+    "content": "Explain theories and phenomena of international investment (Chapters 1-8)",
+    "level": "Vận dụng",
+    "type": "TL",
+    "sl": 2,
+    "d": 3.0
+   },
+   {
+    "content": "Analyze an in-depth issue of international investment (Chapters 1-8)",
+    "level": "Phân tích",
+    "type": "TL",
+    "sl": 1,
+    "d": 4.0
+   }
+  ],
+  "totalQ": {
+   "TN": 0,
+   "TL": 3
+  },
+  "computedTotal": 10.0,
+  "filled": true,
+  "needsReview": false
+ },
  "KTE311": {
   "code": "KTE311",
   "name": "KINH TẾ ĐẦU TƯ",
@@ -147,6 +268,68 @@ const SUBJECTS = {
    },
    {
     "content": "Chương 4,5 (CLO2)",
+    "level": "Phân tích",
+    "type": "TL",
+    "sl": 1,
+    "d": 4.0
+   }
+  ],
+  "totalQ": {
+   "TN": 0,
+   "TL": 3
+  },
+  "computedTotal": 10.0,
+  "filled": true,
+  "needsReview": false
+ },
+ "KTEE311": {
+  "code": "KTEE311",
+  "name": "Investment Economics",
+  "program": "Chất lượng cao",
+  "language": "Tiếng Anh",
+  "credits": "03",
+  "duration": "60 phút",
+  "matrix": [
+   {
+    "content": "Chapters 1, 2, 3, 6 (CLO1)",
+    "level": "Vận dụng",
+    "type": "TL",
+    "sl": 2,
+    "d": 3.0
+   },
+   {
+    "content": "Chapters 4, 5 (CLO2)",
+    "level": "Phân tích",
+    "type": "TL",
+    "sl": 1,
+    "d": 4.0
+   }
+  ],
+  "totalQ": {
+   "TN": 0,
+   "TL": 3
+  },
+  "computedTotal": 10.0,
+  "filled": true,
+  "needsReview": false
+ },
+ "KTE311E": {
+  "code": "KTE311E",
+  "name": "Investment Economics",
+  "program": "Tiên tiến",
+  "language": "Tiếng Anh",
+  "credits": "03",
+  "duration": "60 phút",
+  "matrix": [
+   {
+    "content": "Chapters 1, 2, 3, 6 (CLO1)",
+    "level": "Vận dụng",
+    "type": "TL",
+    "sl": 2,
+    "d": 3.0
+   },
+   {
+    "content": "Chapters 4, 5 (CLO2)",
     "level": "Phân tích",
     "type": "TL",
     "sl": 1,
