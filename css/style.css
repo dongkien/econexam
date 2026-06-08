@@ -99,6 +99,25 @@ textarea { resize: vertical; }
 .structure-info .total-row { font-weight: 700; background: #f1f5f9; }
 .structure-info .note { margin-top: 10px; color: var(--muted); font-size: .88rem; }
 
+/* Ô gõ gợi ý môn (combobox) */
+.combo { position: relative; }
+.suggest {
+  position: absolute; left: 0; right: 0; top: calc(100% + 4px);
+  background: #fff; border: 1px solid var(--border); border-radius: 8px;
+  list-style: none; margin: 0; padding: 4px; z-index: 30;
+  max-height: 300px; overflow-y: auto;
+  box-shadow: 0 8px 22px rgba(0,0,0,.12);
+}
+.suggest li {
+  padding: 9px 11px; border-radius: 6px; cursor: pointer; font-size: .92rem;
+  display: flex; align-items: baseline; gap: 8px;
+}
+.suggest li:hover, .suggest li.active { background: #eef2ff; }
+.suggest li .sg-code { font-weight: 700; color: var(--primary-dark); flex: none; }
+.suggest li .sg-name { flex: 1; }
+.suggest li .sg-prog { color: var(--muted); font-size: .76rem; flex: none; }
+.suggest .sg-empty { padding: 10px; color: var(--muted); font-style: italic; cursor: default; }
+
 /* Pills tóm tắt */
 .meta-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
 .pill {

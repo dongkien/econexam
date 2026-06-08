@@ -6,32 +6,46 @@
 (function () {
   "use strict";
   const el = (id) => document.getElementById(id);
-  const subjectSelect = el("subjectSelect");
+  const subjectInput = el("subjectInput");
+  const suggestBox = el("subjectSuggest");
   const structureInfo = el("structureInfo");
   const questionForms = el("questionForms");
 
   let currentCode = null;
   let slotsCache = { TN: [], TL: [] }; // các "chỗ" câu hỏi sinh ra từ ma trận
+  let activeIdx = -1;                  // mục đang được chọn bằng phím mũi tên
+  let curMatches = [];                 // danh sách gợi ý hiện tại
 
-  // ---- Đổ danh sách môn (nhóm theo hệ) ----
-  function initSubjects() {
-    const byProgram = {};
-    Object.values(SUBJECTS).forEach((s) => {
-      (byProgram[s.program] = byProgram[s.program] || []).push(s);
-    });
-    Object.keys(byProgram).forEach((prog) => {
-      const og = document.createElement("optgroup");
-      og.label = prog;
-      byProgram[prog]
-        .sort((a, b) => a.code.localeCompare(b.code))
-        .forEach((s) => {
-          const opt = document.createElement("option");
-          opt.value = s.code;
-          opt.textContent = `${s.code} — ${s.name}` + (s.filled ? "" : "  (chưa có cấu trúc)");
-          og.appendChild(opt);
-        });
-      subjectSelect.appendChild(og);
-    });
+  const SUBJECT_LIST = Object.values(SUBJECTS).sort((a, b) => a.code.localeCompare(b.code));
+
+  // Bỏ dấu tiếng Việt để tìm kiếm không phân biệt dấu/hoa-thường
+  const norm = (s) => (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d");
+
+  // ---- Lọc & hiển thị gợi ý ----
+  function showSuggest(query) {
+    const q = norm(query.trim());
+    curMatches = q
+      ? SUBJECT_LIST.filter((s) => norm(s.code).includes(q) || norm(s.name).includes(q) || norm(s.program).includes(q))
+      : SUBJECT_LIST.slice();
+    activeIdx = -1;
+    if (!curMatches.length) {
+      suggestBox.innerHTML = `<li class="sg-empty">Không tìm thấy môn phù hợp</li>`;
+      suggestBox.classList.remove("hidden");
+      return;
+    }
+    suggestBox.innerHTML = curMatches
+      .map((s, i) => `<li data-i="${i}"><span class="sg-code">${s.code}</span><span class="sg-name">${s.name}</span><span class="sg-prog">${s.program}</span></li>`)
+      .join("");
+    suggestBox.classList.remove("hidden");
+  }
+
+  function hideSuggest() { suggestBox.classList.add("hidden"); }
+
+  function setActive(i) {
+    const items = suggestBox.querySelectorAll("li[data-i]");
+    activeIdx = i;
+    items.forEach((li, idx) => li.classList.toggle("active", idx === i));
+    if (items[i]) items[i].scrollIntoView({ block: "nearest" });
   }
 
   // ---- Sinh các "chỗ" câu hỏi từ ma trận ----
@@ -223,15 +237,42 @@ Câu hỏi tự luận mẫu: Trình bày vai trò của Marketing số.`;
     a.href = URL.createObjectURL(blob); a.download = "mau-cau-hoi.txt"; a.click();
   }
 
-  // ---- Sự kiện ----
-  subjectSelect.addEventListener("change", function () {
-    currentCode = this.value;
-    ["step-questions", "step-export"].forEach((id) => el(id).classList.add("hidden"));
-    if (!currentCode) { structureInfo.classList.add("hidden"); return; }
-    const s = SUBJECTS[currentCode];
+  // ---- Chọn một môn (từ gợi ý) ----
+  function selectSubject(code) {
+    currentCode = code;
+    const s = SUBJECTS[code];
+    subjectInput.value = `${s.code} — ${s.name}`;
+    hideSuggest();
     renderStructure(s); renderQuestionForms(s);
     ["step-questions", "step-export"].forEach((id) => el(id).classList.remove("hidden"));
     el("exportStatus").textContent = "";
+  }
+
+  function clearSelection() {
+    currentCode = null;
+    structureInfo.classList.add("hidden");
+    ["step-questions", "step-export"].forEach((id) => el(id).classList.add("hidden"));
+  }
+
+  // ---- Sự kiện combobox ----
+  subjectInput.addEventListener("input", function () {
+    clearSelection();
+    showSuggest(this.value);
+  });
+  subjectInput.addEventListener("focus", function () { showSuggest(this.value); });
+  subjectInput.addEventListener("blur", function () { setTimeout(hideSuggest, 150); });
+  subjectInput.addEventListener("keydown", function (e) {
+    if (suggestBox.classList.contains("hidden") || !curMatches.length) return;
+    if (e.key === "ArrowDown") { e.preventDefault(); setActive((activeIdx + 1) % curMatches.length); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); setActive((activeIdx - 1 + curMatches.length) % curMatches.length); }
+    else if (e.key === "Enter") { e.preventDefault(); selectSubject(curMatches[activeIdx >= 0 ? activeIdx : 0].code); }
+    else if (e.key === "Escape") { hideSuggest(); }
+  });
+  suggestBox.addEventListener("mousedown", function (e) {
+    const li = e.target.closest("li[data-i]");
+    if (!li) return;
+    e.preventDefault();
+    selectSubject(curMatches[+li.dataset.i].code);
   });
 
   el("exportBtn").addEventListener("click", exportDocx);
@@ -247,6 +288,4 @@ Câu hỏi tự luận mẫu: Trình bày vai trò của Marketing số.`;
     r.onload = (e) => loadRaw(e.target.result, file.name.toLowerCase().endsWith(".json"));
     r.readAsText(file, "utf-8");
   });
-
-  initSubjects();
 })();

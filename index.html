@@ -17,11 +17,22 @@
     <!-- BƯỚC 1: CHỌN MÔN -->
     <section class="card" id="step-subject">
       <h2><span class="step-num">1</span> Chọn môn học</h2>
-      <div class="field">
-        <label for="subjectSelect">Môn học</label>
-        <select id="subjectSelect">
-          <option value="">— Chọn môn —</option>
-        </select>
+      <div class="grid-2">
+        <div class="field">
+          <label for="subjectInput">Môn học — gõ tên hoặc mã môn</label>
+          <div class="combo">
+            <input type="text" id="subjectInput" autocomplete="off" spellcheck="false"
+                   placeholder="VD: Đầu tư quốc tế, DTU310, kinh tế..." />
+            <ul id="subjectSuggest" class="suggest hidden"></ul>
+          </div>
+        </div>
+        <div class="field">
+          <label for="variantSelect">Loại đề</label>
+          <select id="variantSelect">
+            <option value="official">Đề thi chính thức</option>
+            <option value="backup">Đề dự phòng</option>
+          </select>
+        </div>
       </div>
       <div id="structureInfo" class="structure-info hidden"></div>
     </section>
@@ -49,13 +60,6 @@
     <section class="card hidden" id="step-export">
       <h2><span class="step-num">3</span> Xuất đề thi</h2>
       <p>Đề thi sẽ được tạo theo <strong>đúng mẫu chính thức FTU</strong> (tự chọn bản tiếng Việt/Anh theo môn). Kiểm tra lại câu hỏi rồi bấm nút bên dưới.</p>
-      <div class="field">
-        <label for="variantSelect">Loại đề</label>
-        <select id="variantSelect">
-          <option value="official">Đề thi chính thức</option>
-          <option value="backup">Đề dự phòng</option>
-        </select>
-      </div>
       <div class="export-actions">
         <button class="btn-primary" id="exportBtn" type="button">⬇️ Xuất đề thi (.docx)</button>
         <span id="exportStatus" class="export-status"></span>
