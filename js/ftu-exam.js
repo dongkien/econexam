@@ -187,9 +187,11 @@
 
       const infoRow = (p, shade) => new TableRow({ children: [new TableCell({ width: { size: PRINT_W, type: WidthType.DXA }, borders: GRID_B, shading: shade ? GRAY : undefined, children: p })] });
       const segPar = (segs) => new Paragraph({ spacing: { after: 0, line: 240 }, children: segs.map((s) => run(s[0], { b: s[1] })) });
+      // Họ tên SV / Lớp hành chính: giãn dòng 1.5 (line = 360 = 1.5 × 240)
+      const info0Paras = L.info0.map((ln) => new Paragraph({ spacing: { after: 0, line: 360 }, children: [run(ln)] }));
       children.push(new Table({
         width: { size: PRINT_W, type: WidthType.DXA }, columnWidths: [PRINT_W], borders: GRID_B,
-        rows: [infoRow(cellPars(L.info0), true), infoRow([segPar(L.info1)]), infoRow([segPar(L.info2)])]
+        rows: [infoRow(info0Paras, true), infoRow([segPar(L.info1)]), infoRow([segPar(L.info2)])]
       }));
 
       children.push(par(L.secA(mcqPts).map(([t, ital]) => run(t, { b: true, i: ital })), { before: 120 }));
