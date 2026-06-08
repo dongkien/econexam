@@ -199,6 +199,82 @@ const SUBJECTS = {
   "filled": true,
   "needsReview": false
  },
+ "DTUE301": {
+  "code": "DTUE301",
+  "name": "Principles of Economic Management",
+  "program": "Chất lượng cao",
+  "language": "Tiếng Anh",
+  "credits": "03",
+  "duration": "60 phút",
+  "matrix": [
+   {
+    "content": "Test recall and comprehension of economic management knowledge via multiple-choice questions, spread across Chapters 1-6",
+    "level": "Nhớ",
+    "type": "TN",
+    "sl": 20,
+    "d": 0.2
+   },
+   {
+    "content": "Apply and/or analyze an in-depth issue of economic management (Chapters 4-6: short-run, long-run, or open economy)",
+    "level": "Vận dụng",
+    "type": "TL",
+    "sl": 1,
+    "d": 3.0
+   },
+   {
+    "content": "Apply and/or analyze an in-depth issue of economic management (Chapters 4-6: short-run, long-run, or open economy)",
+    "level": "Phân tích",
+    "type": "TL",
+    "sl": 1,
+    "d": 3.0
+   }
+  ],
+  "totalQ": {
+   "TN": 20,
+   "TL": 2
+  },
+  "computedTotal": 10.0,
+  "filled": true,
+  "needsReview": false
+ },
+ "DTU301E": {
+  "code": "DTU301E",
+  "name": "Principles of Economic Management",
+  "program": "Tiên tiến",
+  "language": "Tiếng Anh",
+  "credits": "03",
+  "duration": "60 phút",
+  "matrix": [
+   {
+    "content": "Test recall and comprehension of economic management knowledge via multiple-choice questions, spread across Chapters 1-6",
+    "level": "Nhớ",
+    "type": "TN",
+    "sl": 20,
+    "d": 0.2
+   },
+   {
+    "content": "Apply and/or analyze an in-depth issue of economic management (Chapters 4-6: short-run, long-run, or open economy)",
+    "level": "Vận dụng",
+    "type": "TL",
+    "sl": 1,
+    "d": 3.0
+   },
+   {
+    "content": "Apply and/or analyze an in-depth issue of economic management (Chapters 4-6: short-run, long-run, or open economy)",
+    "level": "Phân tích",
+    "type": "TL",
+    "sl": 1,
+    "d": 3.0
+   }
+  ],
+  "totalQ": {
+   "TN": 20,
+   "TL": 2
+  },
+  "computedTotal": 10.0,
+  "filled": true,
+  "needsReview": false
+ },
  "KTE301E": {
   "code": "KTE301E",
   "name": "Tư tưởng và thể chế kinh tế hiện đại",
