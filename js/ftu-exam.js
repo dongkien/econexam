@@ -157,8 +157,9 @@
             children: [
               ...cellPars([L.uni], { align: AlignmentType.CENTER, b: true }),
               ...cellPars([L.school], { align: AlignmentType.CENTER }),
-              // Bộ môn: bôi đậm + vạch kẻ ngang ngay sát dưới
-              new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 60, line: 240 }, border: lineBorder, children: [run(L.dept, { b: true })] }),
+              // Bộ môn: bôi đậm; gạch dưới ngắn căn giữa (giống mẫu gốc, gọn gàng)
+              new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 0, line: 240 }, children: [run(L.dept, { b: true })] }),
+              new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 80, line: 200 }, children: [run(UNDERLINE)] }),
               examBox,
               par([run("")]) // đoạn rỗng kết thúc ô (Word yêu cầu sau bảng lồng)
             ]
@@ -167,8 +168,9 @@
             width: { size: 5990, type: WidthType.DXA }, borders: NO_B, verticalAlign: VerticalAlign.TOP, shading: GRAY,
             children: [
               ...cellPars([L.title], { align: AlignmentType.CENTER, b: true }),
-              // Tên + mã học phần: đậm + vạch kẻ ngang ngay sát dưới
-              new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 40, line: 240 }, border: lineBorder, children: [run(`${subject.name} (${subject.code})`, { b: true })] }),
+              // Tên + mã học phần: đậm; gạch dưới ngắn căn giữa
+              new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 0, line: 240 }, children: [run(`${subject.name} (${subject.code})`, { b: true })] }),
+              new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 100, line: 200 }, children: [run(UNDERLINE2)] }),
               ...metaParas
             ]
           })
