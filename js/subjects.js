@@ -99,6 +99,37 @@ const SUBJECTS = {
   "filled": true,
   "needsReview": false
  },
+ "DTUE310": {
+  "code": "DTUE310",
+  "name": "International Investment",
+  "program": "Chất lượng cao",
+  "language": "Tiếng Anh",
+  "credits": "03",
+  "duration": "60 phút",
+  "matrix": [
+   {
+    "content": "Explain theories and phenomena of international investment (Chapters 1-8)",
+    "level": "Vận dụng",
+    "type": "TL",
+    "sl": 2,
+    "d": 3.0
+   },
+   {
+    "content": "Analyze an in-depth issue of international investment (Chapters 1-8)",
+    "level": "Phân tích",
+    "type": "TL",
+    "sl": 1,
+    "d": 4.0
+   }
+  ],
+  "totalQ": {
+   "TN": 0,
+   "TL": 3
+  },
+  "computedTotal": 10.0,
+  "filled": true,
+  "needsReview": false
+ },
  "KTE311": {
   "code": "KTE311",
   "name": "KINH TẾ ĐẦU TƯ",
