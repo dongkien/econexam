@@ -143,9 +143,9 @@
         })]
       })]
     });
-    // Khối thông tin bên phải: căn TRÁI, giãn dòng, bôi đậm nhãn Ngày thi/Ca thi/Thời gian làm bài
+    // Khối thông tin bên phải: căn TRÁI, giãn dòng rõ, bôi đậm nhãn Ngày thi/Ca thi/Thời gian làm bài
     const metaParas = L.meta(dur).map((segs) => new Paragraph({
-      alignment: AlignmentType.LEFT, spacing: { after: 30, line: 276 },
+      alignment: AlignmentType.LEFT, spacing: { after: 60, line: 312 },
       children: segs.map((s) => run(s[0], { b: s[1] }))
     }));
     children.push(new Table({
@@ -153,7 +153,7 @@
       rows: [new TableRow({
         children: [
           new TableCell({
-            width: { size: 4900, type: WidthType.DXA }, borders: NO_B, verticalAlign: VerticalAlign.TOP, shading: GRAY,
+            width: { size: 4900, type: WidthType.DXA }, borders: NO_B, verticalAlign: VerticalAlign.CENTER, shading: GRAY,
             children: [
               ...cellPars([L.uni], { align: AlignmentType.CENTER, b: true }),
               ...cellPars([L.school], { align: AlignmentType.CENTER }),
@@ -168,7 +168,7 @@
             children: [
               ...cellPars([L.title], { align: AlignmentType.CENTER, b: true }),
               // Tên + mã học phần: đậm + vạch kẻ ngang ngay sát dưới
-              new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 80, line: 240 }, border: lineBorder, children: [run(`${subject.name} (${subject.code})`, { b: true })] }),
+              new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 40, line: 240 }, border: lineBorder, children: [run(`${subject.name} (${subject.code})`, { b: true })] }),
               ...metaParas
             ]
           })
