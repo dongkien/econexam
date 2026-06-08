@@ -33,10 +33,10 @@
       title: "ĐỀ THI KẾT THÚC HỌC PHẦN",
       examLabel: { official: "ĐỀ THI CHÍNH THỨC", backup: "ĐỀ THI DỰ PHÒNG" },
       meta: (d) => [
-        "Giai đoạn:…   Học kỳ:…   Năm học: 202…-202…",
-        "Hệ: " + D(9) + "   Khóa: " + D(8),
-        "Ngày thi: " + D(9) + "   Ca thi: " + D(6),
-        `Thời gian làm bài: ${d} phút (không kể thời gian phát đề)`
+        [["Giai đoạn:…   Học kỳ:…   Năm học: 202…-202…", false]],
+        [["Hệ: " + D(9) + "   Khóa: " + D(8), false]],
+        [["Ngày thi", true], [": " + D(9) + "   ", false], ["Ca thi", true], [": " + D(6), false]],
+        [["Thời gian làm bài", true], [`: ${d} phút (không kể thời gian phát đề)`, false]]
       ],
       invig: ["Cán bộ COI THI 1: ", D(13) + "   ", "Cán bộ COI THI 2: ", D(13)],
       info0: ["Họ tên SV: " + D(12) + " MSV: " + D(12) + " Ngày sinh: …/…/……",
@@ -67,10 +67,10 @@
       title: "FINAL EXAM PAPER",
       examLabel: { official: "OFFICIAL EXAM PAPER", backup: "BACK-UP EXAM PAPER" },
       meta: (d) => [
-        "Phase:…   Semester:…   Academic year: 202…-202…",
-        "Full/Part time: " + D(6) + "   Intake: " + D(6),
-        "Exam date: " + D(8) + "   Time: " + D(6),
-        `Duration: ${d} minutes`
+        [["Phase:…   Semester:…   Academic year: 202…-202…", false]],
+        [["Full/Part time: " + D(6) + "   Intake: " + D(6), false]],
+        [["Exam date", true], [": " + D(8) + "   ", false], ["Time", true], [": " + D(6), false]],
+        [["Duration", true], [`: ${d} minutes`, false]]
       ],
       invig: ["Invigilator 1: ", D(15) + "   ", "Invigilator 2: ", D(15)],
       info0: ["Student name: " + D(12) + " Student ID: " + D(12) + " DOB: …/…/……",
@@ -129,8 +129,9 @@
 
     /* ---- Bảng tiêu đề (2 cột, không viền) ---- */
     // Cột phải: mẫu có TN dùng 1 dòng trống; mẫu chỉ tự luận dùng 1 dòng gạch dưới.
-    const rightSpacer = hasMCQ ? par([run("")]) : par([run(UNDERLINE2)], { align: AlignmentType.CENTER });
-    // Ô "ĐỀ THI CHÍNH THỨC / DỰ PHÒNG" — bảng 1 ô đóng khung 4 cạnh, căn giữa, đặt ngay dưới dòng Bộ môn.
+    // Viền dưới đoạn = vạch kẻ ngang nằm NGAY SÁT dưới chân chữ
+    const lineBorder = { bottom: { style: BorderStyle.SINGLE, size: 6, color: "000000", space: 1 } };
+    // Ô "ĐỀ THI CHÍNH THỨC / DỰ PHÒNG" — bảng 1 ô đóng khung 4 cạnh, căn giữa
     const examBox = new Table({
       alignment: AlignmentType.CENTER,
       width: { size: 3600, type: WidthType.DXA }, columnWidths: [3600], borders: GRID_B,
@@ -142,6 +143,11 @@
         })]
       })]
     });
+    // Khối thông tin bên phải: căn TRÁI, giãn dòng, bôi đậm nhãn Ngày thi/Ca thi/Thời gian làm bài
+    const metaParas = L.meta(dur).map((segs) => new Paragraph({
+      alignment: AlignmentType.LEFT, spacing: { after: 30, line: 276 },
+      children: segs.map((s) => run(s[0], { b: s[1] }))
+    }));
     children.push(new Table({
       width: { size: 10890, type: WidthType.DXA }, columnWidths: [4900, 5990], borders: NO_B,
       rows: [new TableRow({
@@ -150,10 +156,9 @@
             width: { size: 4900, type: WidthType.DXA }, borders: NO_B, verticalAlign: VerticalAlign.TOP, shading: GRAY,
             children: [
               ...cellPars([L.uni], { align: AlignmentType.CENTER, b: true }),
-              // Gạch ngang ngay dưới dòng Bộ môn
-              ...cellPars([L.school, L.dept, UNDERLINE], { align: AlignmentType.CENTER }),
-              // Khoảng trống đẩy box "Đề thi chính thức" lui xuống một chút
-              par([run("")], { before: 120 }),
+              ...cellPars([L.school], { align: AlignmentType.CENTER }),
+              // Bộ môn: bôi đậm + vạch kẻ ngang ngay sát dưới
+              new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 60, line: 240 }, border: lineBorder, children: [run(L.dept, { b: true })] }),
               examBox,
               par([run("")]) // đoạn rỗng kết thúc ô (Word yêu cầu sau bảng lồng)
             ]
@@ -162,9 +167,9 @@
             width: { size: 5990, type: WidthType.DXA }, borders: NO_B, verticalAlign: VerticalAlign.TOP, shading: GRAY,
             children: [
               ...cellPars([L.title], { align: AlignmentType.CENTER, b: true }),
-              ...cellPars([`${subject.name} (${subject.code})`], { align: AlignmentType.CENTER, b: true }),
-              rightSpacer,
-              ...cellPars(L.meta(dur), { align: AlignmentType.CENTER })
+              // Tên + mã học phần: đậm + vạch kẻ ngang ngay sát dưới
+              new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 80, line: 240 }, border: lineBorder, children: [run(`${subject.name} (${subject.code})`, { b: true })] }),
+              ...metaParas
             ]
           })
         ]
