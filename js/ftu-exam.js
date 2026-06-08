@@ -153,13 +153,16 @@
       rows: [new TableRow({
         children: [
           new TableCell({
-            width: { size: 4900, type: WidthType.DXA }, borders: NO_B, verticalAlign: VerticalAlign.CENTER, shading: GRAY,
+            // Canh TOP để TRƯỜNG ĐH NGOẠI THƯƠNG ngang hàng với ĐỀ THI KẾT THÚC HỌC PHẦN
+            width: { size: 4900, type: WidthType.DXA }, borders: NO_B, verticalAlign: VerticalAlign.TOP, shading: GRAY,
             children: [
               ...cellPars([L.uni], { align: AlignmentType.CENTER, b: true }),
               ...cellPars([L.school], { align: AlignmentType.CENTER }),
               // Bộ môn: bôi đậm; gạch dưới ngắn căn giữa (giống mẫu gốc, gọn gàng)
               new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 0, line: 240 }, children: [run(L.dept, { b: true })] }),
-              new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 80, line: 200 }, children: [run(UNDERLINE)] }),
+              new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 0, line: 200 }, children: [run(UNDERLINE)] }),
+              // Khoảng trống đẩy riêng box xuống giữa (tên trường vẫn ở trên cùng)
+              par([run("")], { before: 320 }),
               examBox,
               par([run("")]) // đoạn rỗng kết thúc ô (Word yêu cầu sau bảng lồng)
             ]
