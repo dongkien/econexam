@@ -244,6 +244,7 @@
     }));
 
     return new Document({
+      features: { updateFields: true }, // để Word tự cập nhật số trang (NUMPAGES) khi mở file
       styles: { default: { document: { run: { font: FONT, size: SZ }, paragraph: { spacing: { after: 0, line: 240 } } } } },
       sections: [{
         properties: { page: { size: { width: PAGE.width, height: PAGE.height }, margin: { top: PAGE.top, right: PAGE.right, bottom: PAGE.bottom, left: PAGE.left } } },

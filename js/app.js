@@ -21,6 +21,17 @@
   // Bỏ dấu tiếng Việt để tìm kiếm không phân biệt dấu/hoa-thường
   const norm = (s) => (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d");
 
+  // Bậc học theo chữ số ĐẦU của cụm 3 chữ số trong mã học phần:
+  //   < 6: Đại học | = 6: Thạc sĩ | >= 7: Tiến sĩ
+  function eduLevel(code) {
+    const m = String(code).match(/\d{3}/);
+    if (!m) return "—";
+    const d = +m[0][0];
+    if (d < 6) return "Bậc Đại học";
+    if (d === 6) return "Bậc Thạc sĩ";
+    return "Bậc Tiến sĩ";
+  }
+
   // ---- Lọc & hiển thị gợi ý ----
   function showSuggest(query) {
     const q = norm(query.trim());
@@ -29,7 +40,7 @@
       : SUBJECT_LIST.slice();
     activeIdx = -1;
     if (!curMatches.length) {
-      suggestBox.innerHTML = `<li class="sg-empty">Không tìm thấy môn phù hợp</li>`;
+      suggestBox.innerHTML = `<li class="sg-empty">Không tìm thấy học phần phù hợp</li>`;
       suggestBox.classList.remove("hidden");
       return;
     }
@@ -76,12 +87,13 @@
 
     const warn = [];
     if (!s.filled)
-      warn.push(`<div class="banner warn">⚠️ Môn này <strong>chưa được điền cấu trúc câu hỏi</strong> trong file Excel. Bạn vẫn có thể nhập đề thủ công ở dưới.</div>`);
+      warn.push(`<div class="banner warn">⚠️ Học phần này <strong>chưa được điền cấu trúc câu hỏi</strong> trong file Excel. Bạn vẫn có thể nhập đề thủ công ở dưới.</div>`);
     if (s.needsReview)
       warn.push(`<div class="banner warn">⚠️ Tổng điểm theo file = <strong>${s.computedTotal}</strong> (khác 10). Cột "Đ" trong file gốc có thể ghi tổng điểm thay vì điểm mỗi câu — nên kiểm tra lại.</div>`);
 
     structureInfo.innerHTML = `
       <div class="meta-pills">
+        <span class="pill">🎓 ${eduLevel(s.code)}</span>
         <span class="pill">${s.program}</span>
         <span class="pill">${s.language}</span>
         <span class="pill">⏱️ ${s.duration}</span>
@@ -105,7 +117,7 @@
     slotsCache = buildSlots(s);
 
     if (slotsCache.TN.length === 0 && slotsCache.TL.length === 0) {
-      questionForms.innerHTML = `<p class="empty-note">Chưa có cấu trúc câu hỏi cho môn này. (Bạn có thể bổ sung trong file <code>js/subjects.js</code>.)</p>`;
+      questionForms.innerHTML = `<p class="empty-note">Chưa có cấu trúc câu hỏi cho học phần này. (Bạn có thể bổ sung trong file <code>js/subjects.js</code>.)</p>`;
       return;
     }
 

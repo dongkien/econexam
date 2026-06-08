@@ -26,8 +26,9 @@ body {
   padding: 28px 20px;
   text-align: center;
 }
-.app-header h1 { margin: 0 0 6px; font-size: 1.6rem; }
-.subtitle { margin: 0; opacity: .92; font-size: .95rem; }
+.app-header h1 { margin: 0 0 4px; font-size: 1.5rem; letter-spacing: .3px; }
+.app-tagline { margin: 0 0 10px; font-size: 1.02rem; font-weight: 600; opacity: .95; }
+.subtitle { margin: 0; opacity: .9; font-size: .9rem; }
 
 .container {
   max-width: 860px;
