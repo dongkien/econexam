@@ -121,11 +121,13 @@
       return;
     }
 
-    if (slotsCache.TN.length) {
+    const hasTN = slotsCache.TN.length > 0;
+    if (hasTN) {
       questionForms.appendChild(buildSectionBlock("TN", "PHẦN I. TRẮC NGHIỆM", slotsCache.TN));
     }
     if (slotsCache.TL.length) {
-      questionForms.appendChild(buildSectionBlock("TL", "PHẦN II. TỰ LUẬN", slotsCache.TL));
+      // Nếu không có trắc nghiệm thì không đánh số "Phần II" để khỏi hiểu nhầm
+      questionForms.appendChild(buildSectionBlock("TL", hasTN ? "PHẦN II. TỰ LUẬN" : "TỰ LUẬN", slotsCache.TL));
     }
   }
 

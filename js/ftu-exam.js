@@ -29,7 +29,7 @@
     vi: {
       uni: "TRƯỜNG ĐẠI HỌC NGOẠI THƯƠNG",
       school: "Viện Kinh tế và Kinh doanh quốc tế",
-      dept: "BỘ MÔN Kinh tế và Quản lý",
+      dept: "Bộ môn Kinh tế và Quản lý",
       title: "ĐỀ THI KẾT THÚC HỌC PHẦN",
       examLabel: { official: "ĐỀ THI CHÍNH THỨC", backup: "ĐỀ THI DỰ PHÒNG" },
       meta: (d) => [
@@ -150,9 +150,12 @@
             width: { size: 4900, type: WidthType.DXA }, borders: NO_B, verticalAlign: VerticalAlign.TOP, shading: GRAY,
             children: [
               ...cellPars([L.uni], { align: AlignmentType.CENTER, b: true }),
-              ...cellPars([L.school, L.dept], { align: AlignmentType.CENTER }),
+              // Gạch ngang ngay dưới dòng Bộ môn
+              ...cellPars([L.school, L.dept, UNDERLINE], { align: AlignmentType.CENTER }),
+              // Khoảng trống đẩy box "Đề thi chính thức" lui xuống một chút
+              par([run("")], { before: 120 }),
               examBox,
-              ...cellPars([UNDERLINE], { align: AlignmentType.CENTER })
+              par([run("")]) // đoạn rỗng kết thúc ô (Word yêu cầu sau bảng lồng)
             ]
           }),
           new TableCell({
