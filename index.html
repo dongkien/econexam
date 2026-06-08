@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trình tạo đề thi cuối kỳ</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>📝 Trình tạo đề thi cuối kỳ</h1>
+    <p class="subtitle">Chọn môn → xem cấu trúc → nhập câu hỏi → xuất đề thi <strong>.docx</strong></p>
+  </header>
+
+  <main class="container">
+
+    <!-- BƯỚC 1: CHỌN MÔN -->
+    <section class="card" id="step-subject">
+      <h2><span class="step-num">1</span> Chọn môn học</h2>
+      <div class="field">
+        <label for="subjectSelect">Môn học</label>
+        <select id="subjectSelect">
+          <option value="">— Chọn môn —</option>
+        </select>
+      </div>
+      <div id="structureInfo" class="structure-info hidden"></div>
+    </section>
+
+    <!-- BƯỚC 2: NHẬP CÂU HỎI -->
+    <section class="card hidden" id="step-questions">
+      <h2><span class="step-num">2</span> Nhập câu hỏi</h2>
+
+      <div class="upload-box">
+        <p><strong>Cách nhanh:</strong> tải lên file câu hỏi (<code>.txt</code> hoặc <code>.json</code>),
+           hoặc dán nội dung rồi bấm “Nạp”. Mỗi câu cách nhau bằng một dòng trống.</p>
+        <div class="upload-actions">
+          <input type="file" id="fileUpload" accept=".txt,.json" />
+          <button class="btn-secondary" id="loadPasteBtn" type="button">Nạp từ ô dán bên dưới ⤵</button>
+          <a href="#" id="downloadTemplate" class="link-small">Tải file mẫu .txt</a>
+        </div>
+        <textarea id="pasteArea" rows="5"
+          placeholder="Dán câu hỏi vào đây. Mỗi câu cách nhau 1 dòng trống.&#10;Với trắc nghiệm, ghi mỗi lựa chọn trên 1 dòng bắt đầu bằng A. B. C. D."></textarea>
+      </div>
+
+      <div id="questionForms"></div>
+    </section>
+
+    <!-- BƯỚC 3: XUẤT FILE -->
+    <section class="card hidden" id="step-export">
+      <h2><span class="step-num">3</span> Xuất đề thi</h2>
+      <p>Đề thi sẽ được tạo theo <strong>đúng mẫu chính thức FTU</strong> (tự chọn bản tiếng Việt/Anh theo môn). Kiểm tra lại câu hỏi rồi bấm nút bên dưới.</p>
+      <div class="field">
+        <label for="variantSelect">Loại đề</label>
+        <select id="variantSelect">
+          <option value="official">Đề thi chính thức</option>
+          <option value="backup">Đề dự phòng</option>
+        </select>
+      </div>
+      <div class="export-actions">
+        <button class="btn-primary" id="exportBtn" type="button">⬇️ Xuất đề thi (.docx)</button>
+        <span id="exportStatus" class="export-status"></span>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>Chạy hoàn toàn trong trình duyệt · Không gửi dữ liệu đi đâu cả.</p>
+  </footer>
+
+  <!-- Thư viện tạo file .docx (chạy trong trình duyệt) -->
+  <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+  <!-- Dữ liệu môn học (sửa file này để thêm môn) -->
+  <script src="js/subjects.js"></script>
+  <!-- Bộ tạo đề theo mẫu FTU -->
+  <script src="js/ftu-exam.js"></script>
+  <!-- Logic chính -->
+  <script src="js/app.js"></script>
+</body>
+</html>
